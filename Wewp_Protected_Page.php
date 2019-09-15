@@ -1,7 +1,8 @@
 <?php
-if ( ! defined( 'ABSPATH' ) ) {
+if (!defined('ABSPATH')) {
     exit;
 }
+
 class Wewp_Protected_Page
 {
     /**
@@ -46,13 +47,12 @@ class Wewp_Protected_Page
     protected $generate_password_slug = null;
 
 
-
     public function __construct()
     {
         $this->version = '1.0.9';
         $this->plugin_name = 'protected-page';
 
-        add_action( 'plugins_loaded', array( $this, 'init' ) );
+        add_action('plugins_loaded', array($this, 'init'));
     }
 
     public function init()
@@ -73,7 +73,9 @@ class Wewp_Protected_Page
         }
     }
 
-    private function addFilters(){}
+    private function addFilters()
+    {
+    }
 
     private function addActions()
     {
@@ -87,6 +89,22 @@ class Wewp_Protected_Page
 
         add_action('wp_ajax_update_password', array($this->password_manager, 'updatePassword'));
         add_action('wp_ajax_delete_password', array($this->password_manager, 'deletePassword'));
+
+        add_filter('plugin_row_meta', [$this, 'plugin_row_meta'], 10, 2);
+    }
+
+    public function plugin_row_meta($plugin_meta, $plugin_file)
+    {
+
+        $plugin_base_file = $this->plugin_name.'/'.$this->plugin_name.'.php';
+        if ($plugin_base_file === $plugin_file) {
+            $row_meta = [
+                'github' => '<a href="https://github.com/wewp/protected-page" aria-label="' . esc_attr(__('Protected page Github', $this->plugin_name)) . '" target="_blank">' . __('Github', $this->plugin_name) . '</a>',
+            ];
+            $plugin_meta = array_merge($plugin_meta, $row_meta);
+        }
+
+        return $plugin_meta;
     }
 
     public function add_toolbar_items($wp_admin_bar)
@@ -94,7 +112,7 @@ class Wewp_Protected_Page
         global $post;
         require_once 'Wewp_Utils.php';
 
-        if ( !Wewp_Utils::isDisplayAdminTopBarButton() || !isset($post) || !Wewp_Utils::is_post_type_support( $post->post_type ) ) {
+        if (!Wewp_Utils::isDisplayAdminTopBarButton() || !isset($post) || !Wewp_Utils::is_post_type_support($post->post_type)) {
             return;
         }
 
@@ -153,8 +171,8 @@ class Wewp_Protected_Page
 
     public function enqueue_scripts()
     {
-        if ( is_rtl() ) {
-            wp_register_script($this->plugin_name . '_rtl.js', plugin_dir_url(__FILE__) . 'assets/js/rtl.js', array('jquery', ), $this->version, true);
+        if (is_rtl()) {
+            wp_register_script($this->plugin_name . '_rtl.js', plugin_dir_url(__FILE__) . 'assets/js/rtl.js', array('jquery',), $this->version, true);
             wp_enqueue_script($this->plugin_name . '_rtl.js');
         }
 
@@ -195,7 +213,6 @@ class Wewp_Protected_Page
         wp_enqueue_style($this->plugin_name . '_daterangepicker.css');
 
 
-
     }
 
     private function addPostTypesSupport()
@@ -218,7 +235,6 @@ class Wewp_Protected_Page
     }
 
 
-
     public function load_plugin_text_domain()
     {
         load_plugin_textdomain(
@@ -235,7 +251,7 @@ class Wewp_Protected_Page
         $this->analytics_slug = "{$this->parent_menu_slug}_analytics";
         $this->setting_slug = "{$this->parent_menu_slug}_setting";
 
-        add_menu_page('Pages', 'Protected page', 'read', $this->parent_menu_slug, array($this, 'renderPostsListPage'),plugins_url('assets/images/protected-page-admin-icon.png', __FILE__));
+        add_menu_page('Pages', 'Protected page', 'read', $this->parent_menu_slug, array($this, 'renderPostsListPage'), plugins_url('assets/images/protected-page-admin-icon.png', __FILE__));
     }
 
 
@@ -276,7 +292,6 @@ class Wewp_Protected_Page
     }
 
 
-
     private function getPagePasswords()
     {
         global $wpdb;
@@ -295,8 +310,8 @@ class Wewp_Protected_Page
         $supported_post_types = array('page' => 'Page');
         $selected_post_type = 'page';
 
-        if(has_filter('get_support_post_types')){
-            $supported_post_types = apply_filters('get_support_post_types',$supported_post_types);
+        if (has_filter('get_support_post_types')) {
+            $supported_post_types = apply_filters('get_support_post_types', $supported_post_types);
         }
 
         if (empty($supported_post_types)) {
@@ -304,8 +319,8 @@ class Wewp_Protected_Page
             return;
         }
 
-        if(has_filter('get_select_post_type')){
-            $selected_post_type = apply_filters('get_select_post_type',$selected_post_type);
+        if (has_filter('get_select_post_type')) {
+            $selected_post_type = apply_filters('get_select_post_type', $selected_post_type);
         }
 
 //        if (pc_fs()->is__premium_only()) {
