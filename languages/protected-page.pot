@@ -1,0 +1,151 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"Project-Id-Version: Protected page\n"
+"POT-Creation-Date: 2019-07-25 18:09+0300\n"
+"PO-Revision-Date: 2019-07-25 18:08+0300\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.2.3\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-Flags-xgettext: --add-comments=translators:\n"
+"X-Poedit-WPHeader: protected-page.php\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.min.js\n"
+
+#: templates/form-protected.php:23 templates/form-protected.php:25
+msgid "Name"
+msgstr ""
+
+#: templates/form-protected.php:29 templates/form-protected.php:31
+msgid "Email"
+msgstr ""
+
+#: templates/form-protected.php:35
+msgid "Password *"
+msgstr ""
+
+#: templates/form-protected.php:37
+msgid "Password"
+msgstr ""
+
+#: templates/form-protected.php:41
+msgid "Send"
+msgstr ""
+
+#: templates/generate-pass.php:21
+msgid "You generate password for :"
+msgstr ""
+
+#: templates/generate-pass.php:31
+msgid "Generate one password"
+msgstr ""
+
+#: templates/generate-pass.php:36
+msgid "Password code:"
+msgstr ""
+
+#: templates/generate-pass.php:39
+msgid "Generate"
+msgstr ""
+
+#: templates/generate-pass.php:45
+msgid "Number of times this password can be used:"
+msgstr ""
+
+#: templates/generate-pass.php:46 templates/generate-pass.php:77
+msgid "(Leave blank for unlimited)"
+msgstr ""
+
+#: templates/generate-pass.php:55
+msgid "Generate multiple passwords"
+msgstr ""
+
+#: templates/generate-pass.php:63
+msgid "Name or word as prefix"
+msgstr ""
+
+#: templates/generate-pass.php:69
+msgid "Number of passwords to generate"
+msgstr ""
+
+#: templates/generate-pass.php:75
+msgid "Number of uses per password:"
+msgstr ""
+
+#: templates/generate-pass.php:92
+msgid "Passwords"
+msgstr ""
+
+#: templates/generate-pass.php:99
+msgid "Password Code"
+msgstr ""
+
+#: templates/generate-pass.php:103
+msgid "Number of Times"
+msgstr ""
+
+#: templates/generate-pass.php:123
+msgid "update"
+msgstr ""
+
+#: templates/generate-pass.php:126
+msgid "remove"
+msgstr ""
+
+#: templates/pages_table.php:35
+msgid "Pick a page to manage passwords"
+msgstr ""
+
+#: templates/pages_table.php:39
+msgid "When all passwords were used the content is again open to everyone"
+msgstr ""
+
+#: templates/pages_table.php:48
+msgid "Post title"
+msgstr ""
+
+#: templates/pages_table.php:51
+msgid "Is content protected ?"
+msgstr ""
+
+#: templates/pages_table.php:54
+msgid "Opened"
+msgstr ""
+
+#: templates/pages_table.php:57
+msgid "Action"
+msgstr ""
+
+#: templates/pages_table.php:76
+msgid "Protected"
+msgstr ""
+
+#: templates/pages_table.php:85
+msgid "Generate password"
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "Protected page"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+#. Author URI of the plugin/theme
+msgid "http://wewp.dev/plugins/protected-page"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid "Save your content after password."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "WEwp - Gilad Takoni & Ronen abutbul"
+msgstr ""

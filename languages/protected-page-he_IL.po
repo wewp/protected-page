@@ -1,0 +1,286 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Protected Page\n"
+"POT-Creation-Date: 2019-08-12 08:36+0300\n"
+"PO-Revision-Date: 2019-08-12 08:38+0300\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: he_IL\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.2.3\n"
+"X-Poedit-Basepath: ..\n"
+"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : n==2 ? 1 : n>10 && n%10==0 ? "
+"2 : 3);\n"
+"X-Poedit-Flags-xgettext: --add-comments=translators:\n"
+"X-Poedit-WPHeader: protected-page.php\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;"
+"_n_noop:1,2;_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.min.js\n"
+
+#: Wewp_Password_Manager.php:19
+msgid "Successfully updated password"
+msgstr "סיסמה שעודכנה בהצלחה"
+
+#: Wewp_Password_Manager.php:22
+msgid "Error when you try to update password"
+msgstr "שמור את התוכן שלך לאחר הסיסמה"
+
+#: Wewp_Password_Manager.php:62
+msgid "Entered passwords successfully"
+msgstr "הזנת סיסמה בהצלחה"
+
+#: Wewp_Password_Manager.php:62
+msgid "Entered password successfully"
+msgstr "הזנת סיסמה בהצלחה"
+
+#: Wewp_Password_Manager.php:70
+msgid "Error when you try to add multiple password"
+msgstr "אירעה שגיאה בעת יצירת סיסמאות מרובות"
+
+#: Wewp_Password_Manager.php:82
+msgid "Removed password successfully"
+msgstr "הסרת סיסמה בהצלחה"
+
+#: Wewp_Password_Manager.php:175
+msgid "Error when try to delete password"
+msgstr "אירעה שגיאה בזמן שמירת   הסיסמה"
+
+#: Wewp_Protected_Page.php:298
+msgid "Protected page - Setting"
+msgstr "הגדרות - עמוד מוגן"
+
+#: Wewp_Protected_Page.php:306
+msgid "Analytics"
+msgstr "אנליטיקס"
+
+#: Wewp_Setting_Page.php:74
+msgid "Settings"
+msgstr "הגדרות"
+
+#: templates/generate-password-forms.php:36
+msgid "Generate password for:"
+msgstr "צור סיסמה:"
+
+#: templates/generate-password-forms.php:49
+msgid "Generate one password"
+msgstr "צור סיסמה אחת"
+
+#: templates/generate-password-forms.php:55
+msgid "Password code:"
+msgstr "קוד סיסמא:"
+
+#: templates/generate-password-forms.php:58
+msgid "Generate"
+msgstr "צור סיסמא"
+
+#: templates/generate-password-forms.php:64
+#: templates/generate-password-forms.php:97
+msgid "Number uses:"
+msgstr "מספר שימושים:"
+
+#: templates/generate-password-forms.php:65
+#: templates/generate-password-forms.php:100
+msgid "(Leave blank for unlimited)"
+msgstr "(להשאיר ריק בשביל שימוש לא מוגבל)"
+
+#: templates/generate-password-forms.php:70
+#: templates/generate-password-forms.php:105
+msgid "Submit"
+msgstr "שליחה"
+
+#: templates/generate-password-forms.php:78
+msgid "Generate multiple passwords"
+msgstr "יצירת סיסמאות מרובות"
+
+#: templates/generate-password-forms.php:85
+msgid "Prefix"
+msgstr "קידומת"
+
+#: templates/generate-password-forms.php:91
+msgid "How many to generate ?"
+msgstr "כמה יש לייצר ? "
+
+#: templates/generate-password-forms.php:121
+msgid "For generate multiple password per time"
+msgstr "יצירת סיסמאות מרובות בפעם אחת"
+
+#: templates/generate-password-forms.php:123
+msgid "Upgrade Now!"
+msgstr "שדרג עכשיו!"
+
+#: templates/generate-password-forms.php:141
+msgid "Passwords"
+msgstr "סיסמאות"
+
+#: templates/generate-password-forms.php:170
+msgid "Password Code"
+msgstr "קוד סיסמא"
+
+#: templates/generate-password-forms.php:174
+msgid "Usages left"
+msgstr "שימושים שנותרו"
+
+#: templates/generate-password-forms.php:178
+msgid "User"
+msgstr "משתמש"
+
+#: templates/generate-password-forms.php:180
+msgid "User role"
+msgstr "תפקיד משתמש"
+
+#: templates/generate-password-forms.php:181
+msgid "Expiration date"
+msgstr "תאריך סיום"
+
+#: templates/generate-password-forms.php:232
+#: templates/generate-password-forms.php:234
+msgid "update"
+msgstr "עדכון"
+
+#: templates/generate-password-forms.php:236
+#: templates/generate-password-forms.php:238
+msgid "remove"
+msgstr "הסר"
+
+#. Plugin Name of the plugin/theme
+#: templates/message_for_checked_support_post_typee.php:2
+msgid "Protected Page"
+msgstr "עמוד מוגן"
+
+#: templates/message_for_checked_support_post_typee.php:3
+msgid "Pick a page to manage passwords"
+msgstr "בחר עמוד לניהול סיסמאות"
+
+#: templates/message_for_checked_support_post_typee.php:7
+msgid "You need to choose supported post type."
+msgstr "עליך לבחור סוג Post type."
+
+#: templates/message_for_checked_support_post_typee.php:8
+msgid "Click here to start"
+msgstr "לחץ כאן כדי להתחיל"
+
+#: templates/pages_table.php:59
+msgid "Select page to generate passwords"
+msgstr "בחר עמוד לניהול סיסמאות"
+
+#: templates/pages_table.php:77
+msgid "No posts found in the requested type"
+msgstr "לא נמצאו הודעות בסוג הפוסט המבוקש"
+
+#: templates/pages_table.php:93
+msgid "Post title"
+msgstr "כותרת הפוסט"
+
+#: templates/pages_table.php:96
+msgid "Protected"
+msgstr "מוגן"
+
+#: templates/pages_table.php:99
+msgid "Action"
+msgstr "פעולה"
+
+#: templates/pages_table.php:130
+msgid "Generate password"
+msgstr "צור סיסמה"
+
+#: templates/protected-form.php:21
+msgid "Content protected"
+msgstr "תוכן מוגן"
+
+#: templates/protected-form.php:28 templates/protected-form.php:30
+msgid "Name"
+msgstr "שם"
+
+#: templates/protected-form.php:34 templates/protected-form.php:36
+msgid "Email"
+msgstr "אימייל"
+
+#: templates/protected-form.php:40
+msgid "Password *"
+msgstr "סיסמה *"
+
+#: templates/protected-form.php:42
+msgid "Password"
+msgstr "סיסמה"
+
+#: templates/protected-form.php:46
+msgid "Send"
+msgstr "שלח"
+
+#. Plugin URI of the plugin/theme
+msgid "https://wordpress.org/plugins/protected-page/"
+msgstr "/‫http://wewp.dev/plugins/protected-page"
+
+#. Description of the plugin/theme
+msgid "Save your content after password."
+msgstr "שמור את התוכן שלך לאחר הסיסמה."
+
+#. Author of the plugin/theme
+msgid "wewp.dev - Gilad Takoni & Ronen abutbul"
+msgstr "‫wewp.dev - גלעד טקוני & רונן אבוטבול"
+
+#. Author URI of the plugin/theme
+msgid "http://wewp.dev/plugins/protected-page/"
+msgstr "/‫http://wewp.dev/plugins/protected-page"
+
+#~ msgid "Error inserting password"
+#~ msgstr "קרת שגיאה בהכנסת סיסמא"
+
+#~ msgid "Number of times this password can be used:"
+#~ msgstr "מספר הפעמים בהן ניתן להשתמש בסיסמה זו:"
+
+#~ msgid "Number of uses (per password):"
+#~ msgstr "מספר שימושים לכל סיסמה:"
+
+#~ msgid "When all passwords were used the content is again open to everyone"
+#~ msgstr "כאשר כל הסיסמאות שומשו התוכן פתוח שוב לכולם"
+
+#~ msgid "Is content protected ?"
+#~ msgstr "האם התוכן מוגן?"
+
+#~ msgid "Page's password"
+#~ msgstr "סיסמאות לעמוד"
+
+#~ msgid "Protected page"
+#~ msgstr "עמוד מוגן"
+
+#~ msgid "http://wewp.dev/"
+#~ msgstr "‫http://wewp.dev/"
+
+#~ msgid "Entered passwords successfully to the system"
+#~ msgstr "הזנת סיסמה בהצלחה"
+
+#~ msgid "to the system"
+#~ msgstr "למערכת"
+
+#, fuzzy
+#~| msgid "Is content protected ?"
+#~ msgid "The content is protected"
+#~ msgstr "האם התוכן מוגן?"
+
+#~ msgid "Name or word as prefix"
+#~ msgstr "שם או מילה כקידומת"
+
+#~ msgid "Number of passwords to generate"
+#~ msgstr "מספר הסיסמאות שיש ליצור"
+
+#~ msgid "Opened"
+#~ msgstr "פתוח"
+
+#, fuzzy
+#~ msgid "Successfully entered passwords to the system"
+#~ msgstr "הוזן בהצלחה סיסמאות למערכת"
+
+#, fuzzy
+#~ msgid "Successfully Removed password"
+#~ msgstr "סיסמה שהוסרה בהצלחה"
+
+#, fuzzy
+#~| msgid "Generate password"
+#~ msgid "Successfully entered password"
+#~ msgstr "שנה לסיסמא חדשה"

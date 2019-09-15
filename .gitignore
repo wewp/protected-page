@@ -1,0 +1,17 @@
+
+scripts/versions
+# dependencies
+
+# testing
+
+# production
+
+# misc
+.DS_Store
+
+
+#build dir
+
+*.zip
+
+# for security
