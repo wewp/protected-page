@@ -54,22 +54,22 @@ Your customers no need to login to system for show the content, only type the pa
 
 ### Frequently Asked Questions ###  
 
-### Changelog ###  
-= 1.0.10 - 2018-09-10 =
+## Changelog ### 
+### 1.0.10 - 2018-09-10 ###
 * add option to protect whole page
 * add `protected_page_enqueue_scripts_or_styles` action to add custom script or style to protect whole page
 
-= 1.0.9 - 2018-08-14 =
+### 1.0.9 - 2018-08-14 ###
 Add toggle checkbox for display top admin bar button
 
 = 1.0.8 - 2018-08-14 =
 Add error message in page form
 Add top admin bar button to specific protected page
 
-= 1.0.4 - 2018-08-12 =
+### 1.0.4 - 2018-08-12 ###
 Fix small bugs
 
-= 1.0.4 - 2018-08-12 =
+### 1.0.4 - 2018-08-12 ###
 * Add user role to set in password
 * Add user to set in password
 * Add expiration date (start time and ent time ) to set in password
