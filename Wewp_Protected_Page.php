@@ -71,6 +71,7 @@ class Wewp_Protected_Page
             add_action('admin_menu', array($this, 'setAdminMenu'));
             add_filter('plugins_loaded', array($this, 'load_plugin_text_domain'));
         }
+        require_once 'Wewp_Customize.php';
     }
 
     private function addFilters()

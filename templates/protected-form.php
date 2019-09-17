@@ -53,48 +53,51 @@
     }
 
     .insert-password-form input[type=submit] {
-        background-color: #000000;
         border: 1px solid transparent;
-        color: white;
         line-height: 44px;
-        font-size: 20px;
         padding: 0 22px;
     }
 
-    .insert-password-form input[type=submit]:hover {
-        color: black;
-        background: white;
-        border-color: #0F0F0F
-    }
     .error-message{color:red}
 </style>
 <section class="page-protected">
+     <div class="protected-page-image"><img src="<?php echo get_option('wewp_page_image'); ?>"></div>
     <header class="entry-header single-heading">
-        <h1 class="entry-title"><?php echo __('Content protected', 'protected-page'); ?></h1>
+        <h1 class="entry-title"><?php echo get_option('wewp_page_title', 'Content protected'); ?></h1>
     </header>
     <div class="entry-content">
         <div class="insert-password-form">
             <form method="post" action="" class="">
                 <?php wp_nonce_field('protected-form' . $post->ID); ?>
                 <div>
-                    <label for="name"><?php echo __('Name', 'protected-page'); ?></label>
+                    <?php if(get_option('wewp_form_name_field_on', 'show') == 'show') :?>
+                       <?php if(get_option('wewp_form_lable_on', 'show') == 'show') :?> 
+                    <label for="name"><?php echo get_option('wewp_form_name_field_lable', 'Name'); ?></label>
+                <?php endif ?>
                     <div class="input-wrapper">
                         <input type="text" name="protect_page_name" id="name"
-                               placeholder="<?php echo __('Name', 'protected-page'); ?>"/>
+                               placeholder="<?php echo get_option('wewp_form_name_field_placeholder', 'Name'); ?>"/>
                     </div>
+                <?php endif; ?>
                 </div>
                 <div>
-                    <label for="email"><?php echo __('Email', 'protected-page'); ?></label>
+                    <?php if(get_option('wewp_form_email_field_on', 'show') == 'show') :?>
+                        <?php if(get_option('wewp_form_lable_on', 'show') == 'show') :?> 
+                    <label for="email"><?php echo get_option('wewp_form_email_field_lable', 'Email'); ?></label>
+                    <?php endif; ?>
                     <div class="input-wrapper">
                         <input type="email" name="protect_page_email" id="email"
-                               placeholder="<?php echo __('Email', 'protected-page'); ?>"/>
+                               placeholder="<?php echo get_option('wewp_form_email_field_placeholder', 'Email'); ?>"/>
                     </div>
+                    <?php endif; ?>
                 </div>
                 <div>
-                    <label for="sssd"><?php echo __('Password *', 'protected-page'); ?></label>
+                    <?php if(get_option('wewp_form_lable_on', 'show') == 'show') :?> 
+                    <label for="sssd"><?php echo get_option('wewp_form_password_field_lable', 'Password'); ?></label>
+                    <?php endif; ?>
                     <div class="input-wrapper">
                         <input type="text" name="protect_page_password" id="sssd"
-                               placeholder="<?php echo __('Password', 'protected-page'); ?>"/>
+                               placeholder="<?php echo get_option('wewp_form_password_field_placeholder', 'Password'); ?>"/>
                     </div>
                 </div>
 
@@ -103,7 +106,9 @@
                         <label> </label><span><?php echo esc_html($displayForm->error); ?></span>
                     </div>
                 <?php endif; ?>
+                <div class="protected-form-submit">
                 <input type="submit" value="<?php echo __('Send', 'protected-page'); ?>"/>
+            </div>
             </form>
         </div><!-- .entry-content -->
     </div>
