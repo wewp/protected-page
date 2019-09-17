@@ -177,8 +177,9 @@
                                id="code_<?php echo esc_html($key) ?>"
                                pattern="<?php echo PASSWORD_PATTERN ?>"
                                value="<?php echo $row['code']; ?>" style="max-width: 121px;margin-right: 10px;"/>
-                        <i class="far fa-copy clipboard-btn"
-                           data-clipboard-target="#code_<?php echo esc_html($key) ?>"></i>
+                        <svg style="width:18px;height:19px;cursor: pointer" viewBox="0 0 24 24" data-clipboard-target="#code_<?php echo esc_html($key) ?>" class="clipboard-btn" >
+                            <path fill="#000000" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z" />
+                        </svg>
                     </td>
                     <td class="times">
                         <input type="text" name="usages_left" value="<?php echo esc_html($row['usages_left']) ?>"/>

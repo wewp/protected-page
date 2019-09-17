@@ -24,19 +24,18 @@ if (!defined('ABSPATH')) {
 }
 
 
+if (!defined('DISPLAY_BANNER')) {
+    define('DISPLAY_BANNER', true);
+}
+define('PASSWORD_CHARACTERS', 'abcdefghijklmnopqrstuwxyzABCDEFGHIJKLMNOPQRSTUWXYZ0123456789!@#$%_^&*()?{}|;:~');
+define('PASSWORD_PATTERN', "[abcdefghijklmnopqrstuwxyzABCDEFGHIJKLMNOPQRSTUWXYZ0123456789!@#$%^&_*()?{}|;:~]+");
 
-    if (!defined('DISPLAY_BANNER')) {
-        define('DISPLAY_BANNER', true);
-    }
-    define('PASSWORD_CHARACTERS', 'abcdefghijklmnopqrstuwxyzABCDEFGHIJKLMNOPQRSTUWXYZ0123456789!@#$%_^&*()?{}|;:~');
-    define('PASSWORD_PATTERN', "[abcdefghijklmnopqrstuwxyzABCDEFGHIJKLMNOPQRSTUWXYZ0123456789!@#$%^&_*()?{}|;:~]+");
+function updateDatabase()
+{
+    global $wpdb;
 
-    function updateDatabase()
-    {
-        global $wpdb;
-
-        $table_name_pp_passwords = $wpdb->prefix . "pp_passwords";
-        $sql_pp_passwords = "CREATE TABLE {$table_name_pp_passwords} (
+    $table_name_pp_passwords = $wpdb->prefix . "pp_passwords";
+    $sql_pp_passwords = "CREATE TABLE {$table_name_pp_passwords} (
   `id` mediumint(9) NOT NULL AUTO_INCREMENT,
   `page_id` int(11) NOT NULL,
   `code` varchar(75) NOT NULL,
@@ -52,8 +51,8 @@ if (!defined('ABSPATH')) {
   UNIQUE KEY `code_UNIQUE` (`code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;";
 
-        $table_name_password_protected_analytics = $wpdb->prefix . "pp_analytics";
-        $sql_password_protected_analytics = "CREATE TABLE {$table_name_password_protected_analytics} (
+    $table_name_password_protected_analytics = $wpdb->prefix . "pp_analytics";
+    $sql_password_protected_analytics = "CREATE TABLE {$table_name_password_protected_analytics} (
   `id` mediumint(9) NOT NULL AUTO_INCREMENT,
   `name` varchar(75) NOT NULL,
   `email` varchar(75) NOT NULL,
@@ -65,20 +64,20 @@ if (!defined('ABSPATH')) {
   UNIQUE KEY `id` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;";
 
-        require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
-        dbDelta($sql_password_protected_analytics);
-        dbDelta($sql_pp_passwords);
-    }
+    require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
+    dbDelta($sql_password_protected_analytics);
+    dbDelta($sql_pp_passwords);
+}
 
 
-    function init_plugin_protected_page()
-    {
-        register_activation_hook(__FILE__, 'updateDatabase');
-        require_once 'Wewp_Protected_Page.php';
-        $plugin = new Wewp_Protected_Page();
-    }
+function init_plugin_protected_page()
+{
+    register_activation_hook(__FILE__, 'updateDatabase');
+    require_once 'Wewp_Protected_Page.php';
+    $plugin = new Wewp_Protected_Page();
+}
 
-    init_plugin_protected_page();
+init_plugin_protected_page();
 
 
 
