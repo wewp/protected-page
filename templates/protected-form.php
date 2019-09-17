@@ -107,7 +107,7 @@
                     </div>
                 <?php endif; ?>
                 <div class="protected-form-submit">
-                <input type="submit" value="<?php echo __('Send', 'protected-page'); ?>"/>
+                <input type="submit" value="<?php echo get_option('wewp_page_submit_text', 'SEND'); ?>"/>
             </div>
             </form>
         </div><!-- .entry-content -->
