@@ -23,66 +23,52 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
+if (function_exists('freemius_protected_page')) {
+    freemius_protected_page()->set_basename(true, __FILE__);
+} else {
+    if (!function_exists('freemius_protected_page')) {
 
-if (!defined('DISPLAY_BANNER')) {
-    define('DISPLAY_BANNER', true);
+        function freemius_protected_page()
+        {
+            global $freemius_protected_page;
+
+            if (!isset($freemius_protected_page)) {
+                // Include Freemius SDK.
+                require_once dirname(__FILE__) . '/libs/fs-sdk/start.php';
+
+                $freemius_protected_page = fs_dynamic_init(array(
+                    'id' => '4199',
+                    'slug' => 'protected-page',
+                    'premium_slug' => 'protected-page-pro',
+                    'type' => 'plugin',
+                    'public_key' => 'pk_0c2de17e09a076dadeb62e3bb486a',
+                    'is_premium' => false,
+                    'premium_suffix' => 'Pro',
+                    // If your plugin is a serviceware, set this option to false.
+                    'has_premium_version' => true,
+                    'has_addons' => false,
+                    'has_paid_plans' => true,
+                    'menu' => array(
+                        'slug' => 'protected-page',
+                    ),
+                    // Set the SDK to work in a sandbox mode (for development & testing).
+                    // IMPORTANT: MAKE SURE TO REMOVE SECRET KEY BEFORE DEPLOYMENT.
+                    //                 'secret_key'          => 'sk_7E;fNO]bQ0OQ7cae?uLn2I~P?]q$p',
+                ));
+            }
+
+            return $freemius_protected_page;
+        }
+
+        do_action('freemius_protected_page_loaded');
+    }
+
+
+    require_once dirname(__FILE__) . '/loader.php';
+
+//     if (freemius_protected_page()->is__premium_only()) {
+//         if (freemius_protected_page()->can_use_premium_code()) {
+            require_once dirname(__FILE__) . '/paid/protected-page-pro.php';
+//         }
+//     }
 }
-define('PASSWORD_CHARACTERS', 'abcdefghijklmnopqrstuwxyzABCDEFGHIJKLMNOPQRSTUWXYZ0123456789!@#$%_^&*()?{}|;:~');
-define('PASSWORD_PATTERN', "[abcdefghijklmnopqrstuwxyzABCDEFGHIJKLMNOPQRSTUWXYZ0123456789!@#$%^&_*()?{}|;:~]+");
-
-function updateDatabase()
-{
-    global $wpdb;
-
-    $table_name_pp_passwords = $wpdb->prefix . "pp_passwords";
-    $sql_pp_passwords = "CREATE TABLE {$table_name_pp_passwords} (
-  `id` mediumint(9) NOT NULL AUTO_INCREMENT,
-  `page_id` int(11) NOT NULL,
-  `code` varchar(75) NOT NULL,
-  `usages` int(11) NOT NULL,
-  `usages_left` int(11) DEFAULT NULL,
-  `start_time` datetime DEFAULT NULL,
-  `end_time` datetime DEFAULT NULL,
-  `user_id` int(11) DEFAULT NULL,
-  `user_role` varchar(45) DEFAULT NULL,
-  `created_date` datetime DEFAULT NULL,
-  `updated_date` datetime DEFAULT NULL,
-  UNIQUE KEY `id` (`id`),
-  UNIQUE KEY `code_UNIQUE` (`code`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;";
-
-    $table_name_password_protected_analytics = $wpdb->prefix . "pp_analytics";
-    $sql_password_protected_analytics = "CREATE TABLE {$table_name_password_protected_analytics} (
-  `id` mediumint(9) NOT NULL AUTO_INCREMENT,
-  `name` varchar(75) NOT NULL,
-  `email` varchar(75) NOT NULL,
-  `ip` varchar(20) NOT NULL,
-  `post_id` int(11) NOT NULL,
-  `post_title` varchar(250) NOT NULL,
-  `created_date` datetime DEFAULT NULL,
-  `updated_date` datetime DEFAULT NULL,
-  UNIQUE KEY `id` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;";
-
-    require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
-    dbDelta($sql_password_protected_analytics);
-    dbDelta($sql_pp_passwords);
-}
-
-
-function init_plugin_protected_page()
-{
-    register_activation_hook(__FILE__, 'updateDatabase');
-    require_once 'Wewp_Protected_Page.php';
-    $plugin = new Wewp_Protected_Page();
-}
-
-init_plugin_protected_page();
-
-
-
-
-
-
-
-

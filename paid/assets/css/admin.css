@@ -1,0 +1,36 @@
+.times input,
+td.code input {
+    background: transparent;
+    border-color: transparent;
+    box-shadow: none;
+}
+
+td.times input:focus,
+td.code input:focus {
+    border-color: #ddd;
+}
+
+td.code i {
+    padding: 5px;
+    cursor: pointer;
+}
+
+.times input {
+    width: 85px;
+}
+
+.is-protected-all-page,
+.generate-password-link {
+    display: none !important;
+}
+
+.is-protected .is-protected-all-page,
+.is-protected .generate-password-link {
+    display: inline-block !important;;
+}
+
+#passwords-table td select{display: block;width: 100%}
+.password-list td{vertical-align: middle}
+/*input[name="code"]:focus:invalid {*/
+/*    border: 1px solid red;*/
+/*}*/
