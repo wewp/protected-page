@@ -26,7 +26,6 @@ class Wewp_Guard_Content
 
     private function addAction()
     {
-
     }
 
     public function protectAllPage()
@@ -95,8 +94,31 @@ class Wewp_Guard_Content
         $return = new stdClass();
         $return->error = '';
 
+        /**
+         * Specific post with specific user level
+         */
+        $post_protect_by_user_role = get_post_meta($page_id, 'page_protected_user_role', true);
+
+
+        if ($this->isCPTLimitAuthorization()) {
+            if (!$this->validateCPTAuthorization()) {
+                $return->error = __('Invalid CPT Authorization', 'protected-page');
+                return $return;
+            }
+            return false;
+        }
+
+
         if (!isset($post->is_page_protected) || $post->is_page_protected === '0') {
             return false;
+        }
+
+        if ($post_protect_by_user_role) {
+            if (!$this->validateUserRole($post_protect_by_user_role)) {
+                $return->error = __('Invalid user role', 'protected-page');
+                return $return;
+            }
+            return  false;
         }
 
         $_wpnonce = isset($_POST['_wpnonce']) ? $_POST['_wpnonce'] : '';
@@ -110,6 +132,8 @@ class Wewp_Guard_Content
         $email = isset($_POST['protect_page_email']) && !empty($_POST['protect_page_email']) ? sanitize_text_field($_POST['protect_page_email']) : null;
         $password = isset($_POST['protect_page_password']) && !empty($_POST['protect_page_password']) ? sanitize_text_field($_POST['protect_page_password']) : null;
 
+        if ($post->page_protected_user_role) {
+        }
         if (!is_email($email)) {
             $return->error = __('Invalid fields', 'protected-page');
             return $return;
@@ -124,6 +148,7 @@ class Wewp_Guard_Content
             $return->error = __('Invalid fields', 'protected-page');
             return $return;
         }
+
 
         $password_row = $this->getPasswordRow($page_id, $password);
 
@@ -142,7 +167,7 @@ class Wewp_Guard_Content
             return $return;
         }
 
-        if (!$this->validateUserRole($password_row)) {
+        if (!$this->validateUserRole($password_row->user_role)) {
             $return->error = __('Invalid permissions', 'protected-page');
             return $return;
         }
@@ -152,6 +177,44 @@ class Wewp_Guard_Content
         return false;
     }
 
+    private function validateCPTAuthorization()
+    {
+        global $post;
+
+        $user = wp_get_current_user();
+        if (!$user) {
+            return false;
+        }
+
+        $cpt_levels = get_option('protect_post_type_by_user_roles');
+        if (!isset($cpt_levels[$post->post_type])) {
+            return true;
+        }
+
+        $current_cpt_levels = $cpt_levels[$post->post_type];
+
+        $logged_user_roles = wp_parse_args(get_the_author_meta('protect_post_type_by_user_roles', $user->ID));
+        $hasAuthorization = false;
+        foreach ($logged_user_roles as $key => $logged_user_role) {
+            $hasAuthorization = in_array($logged_user_role, $current_cpt_levels);
+            // var_dump([
+            //     '$logged_user_role' => $logged_user_role,
+            //     '$current_cpt_levels' => $current_cpt_levels,
+            //     '$logged_user_roles' => $logged_user_roles,
+            //     '$cpt_levels' => $cpt_levels,
+            // ]);
+            // die('1');
+            if ($hasAuthorization) break;
+        }
+
+        return $hasAuthorization;
+    }
+    private function isCPTLimitAuthorization()
+    {
+        global $post;
+        $option_key = 'cpt_toggle_' . $post->post_type;
+        return get_option($option_key);
+    }
     /**
      * If $passwordRow set user_id return true if logged user id === $passwordRow['user_id']  else return false
      *
@@ -188,9 +251,9 @@ class Wewp_Guard_Content
      * @since    1.0.3
      * @access   private
      */
-    private function validateUserRole($passwordRow)
+    private function validateUserRole($user_role)
     {
-        if ($passwordRow->user_role === null || $passwordRow->user_role === 'administrator') {
+        if ($user_role === null || $user_role === 'administrator') {
             return true;
         }
 
@@ -201,7 +264,7 @@ class Wewp_Guard_Content
             return false;
         }
 
-        return in_array($passwordRow->user_role, $loggedUser->roles);
+        return in_array($user_role, $loggedUser->roles);
     }
 
     /**
@@ -269,7 +332,7 @@ class Wewp_Guard_Content
         $this->savePasswordUsageAnalytics();
 
         //#TODO add cookie for 5 hours - each password valid for 5 hours
-//        setcookie($this->insert_valid_pass_cookie_name, rand(), time() + (3600 * $this->hours_per_usage_password));
+        //        setcookie($this->insert_valid_pass_cookie_name, rand(), time() + (3600 * $this->hours_per_usage_password));
     }
 
     private function savePasswordUsageAnalytics()

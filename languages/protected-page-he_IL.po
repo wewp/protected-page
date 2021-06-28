@@ -221,8 +221,8 @@ msgid "Save your content after password."
 msgstr "שמור את התוכן שלך לאחר הסיסמה."
 
 #. Author of the plugin/theme
-msgid "wewp.dev - Gilad Takoni & Ronen abutbul"
-msgstr "‫wewp.dev - גלעד טקוני & רונן אבוטבול"
+msgid "Gilad Takoni"
+msgstr "‫"גלעד טקוני
 
 #. Author URI of the plugin/theme
 msgid "http://wewp.dev/plugins/protected-page/"

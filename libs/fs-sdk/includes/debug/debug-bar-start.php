@@ -24,7 +24,7 @@
 	function fs_custom_panels_init( $panels ) {
 		if ( class_exists( 'Debug_Bar_Panel' ) ) {
 			if ( FS_API__LOGGER_ON ) {
-				require_once dirname(__FILE__) . '/class-fs-debug-bar-panel.php';
+				require_once dirname( __FILE__ ) . '/class-fs-debug-bar-panel.php';
 				$panels[] = new Freemius_Debug_Bar_Panel();
 			}
 		}
@@ -35,7 +35,7 @@
 	function fs_custom_status_init( $statuses ) {
 		if ( class_exists( 'Debug_Bar_Panel' ) ) {
 			if ( FS_API__LOGGER_ON ) {
-				require_once dirname(__FILE__) . '/class-fs-debug-bar-panel.php';
+				require_once dirname( __FILE__ ) . '/class-fs-debug-bar-panel.php';
 				$statuses[] = array(
 					'fs_api_requests',
 					fs_text_inline( 'Freemius API' ),

@@ -147,5 +147,5 @@ msgid "Save your content after password."
 msgstr ""
 
 #. Author of the plugin/theme
-msgid "WEwp - Gilad Takoni & Ronen abutbul"
+msgid "Gilad Takoni"
 msgstr ""

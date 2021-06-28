@@ -1,45 +1,97 @@
 .times input,
 td.code input {
-    background: transparent;
-    border-color: transparent;
-    box-shadow: none;
+  background: transparent;
+  border-color: transparent;
+  box-shadow: none;
 }
 
 td.times input:focus,
 td.code input:focus {
-    border-color: #ddd;
+  border-color: #ddd;
 }
 
 td.code i {
-    padding: 5px;
-    cursor: pointer;
+  padding: 5px;
+  cursor: pointer;
 }
 
 .times input {
-    width: 85px;
+  width: 85px;
 }
 
+td select[name="user_role"],
 .is-protected-all-page,
 .generate-password-link {
-    display: none !important;
+  display: none !important;
 }
 
+.is-protected td select[name="user_role"],
 .is-protected .is-protected-all-page,
 .is-protected .generate-password-link {
-    display: inline-block !important;;
+  display: inline-block !important;
 }
 
-#passwords-table td select{display: block;width: 100%}
-.password-list td{vertical-align: middle}
+#passwords-table td select {
+  display: block;
+  width: 100%;
+}
+.password-list td {
+  vertical-align: middle;
+}
 /*input[name="code"]:focus:invalid {*/
 /*    border: 1px solid red;*/
 /*}*/
 
-.acction-buttons{
-    display: flex !important;
-    align-items: center;
+.acction-buttons {
+  display: flex !important;
+  align-items: center;
 }
-.acction-buttons button{
-    display: flex !important;
-    align-items: center;
+.acction-buttons button {
+  display: flex !important;
+  align-items: center;
 }
+
+.pp-flex {
+  display: flex;
+}
+.pp-flex-center {
+  align-items: center;
+}
+.protect-all-cpt-pages {
+  margin-top: 2em;
+}
+
+.wrapper.only-cpt table:not(.form-table) {
+  display: none;
+}
+
+.select-user-role-section {
+  display: none;
+}
+
+.wrapper.only-cpt .select-user-role-section {
+  display: block;
+}
+
+.pp-title {
+  font-size: 17px;
+  font-weight: 500;
+  margin: 15px auto;
+}
+
+.wrapper label {
+  user-select: none;
+}
+
+.protect-page-user-profile-section{
+  background: #2e89fc;
+  margin-left: -20px;
+  padding: 10px 21px;
+  color:white;
+  border-radius: 5px;
+}
+.protect-page-user-profile-section img{
+  margin-right:10px;
+}
+.protect-page-user-profile-section label,
+.protect-page-user-profile-section h3{color:white}

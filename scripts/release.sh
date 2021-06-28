@@ -78,8 +78,9 @@ rm -Rf $ROOT_PATH$TEMP_SVN_REPO'/trunk'
 cp -R $CURRENT_VERSION_PATH $ROOT_PATH$TEMP_SVN_REPO'/trunk'
 
 # MOVE INTO wp-repo/assets FOR COPY ASSETS FILES
-cd '../..'
-cp -R 'wp-repo/assets' $ROOT_PATH$TEMP_SVN_REPO'/'
+# cd '..'
+# echo $(pwd)
+# cp -R 'wp-repo/assets' $ROOT_PATH$TEMP_SVN_REPO'/'
 
 # MOVE INTO SVN DIR
 cd $ROOT_PATH$TEMP_SVN_REPO

@@ -7,7 +7,7 @@
 	 */
 
 	// Configuration should be loaded first.
-	require_once dirname(__FILE__) . '/config.php';
+	require_once dirname( __FILE__ ) . '/config.php';
 	require_once WP_FS__DIR_INCLUDES . '/fs-core-functions.php';
 
 	// Logger must be loaded before any other.
