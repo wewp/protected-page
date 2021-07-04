@@ -118,7 +118,7 @@ if (!class_exists('Wewp_Setting_Page')) {
 		}
 
 
-		public function render_pages_select()
+		public function render_pages_select($name = 'pp_redirect_when_user_not_logged_in')
 		{
 			// require plugin_dir_path(__FILE__) . 'wewp_utils.php';
 			// $display_admin_top_bar_button = Wewp_Utils::getOptionAdminTopBar();
@@ -142,10 +142,9 @@ if (!class_exists('Wewp_Setting_Page')) {
 			$pages = get_pages($args); // get all pages based on supplied args
 		?>
 			<div>
-
-				<select name='pp_redirect_when_user_not_logged_in'>
+				<select name='<?php echo $name; ?>'>
 					<?php foreach ($pages as $page) : ?>
-						<option value="<?php echo $page->guid; ?>"> <?php echo $page->post_title; ?></option>
+						<option value="<?php echo esc_html($page->ID); ?>"> <?php echo esc_html($page->post_title); ?></option>
 					<?php endforeach; ?>
 				</select>
 			</div>

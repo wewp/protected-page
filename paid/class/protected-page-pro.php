@@ -163,6 +163,44 @@ if (!class_exists('Protected_Page_Pro')) {
 			add_filter('woocommerce_admin_process_product_object',  array($this, 'action_woocommerce_admin_process_product_object'), 10, 1);
 
 			add_filter('woocommerce_product_data_panels',  array($this, 'action_woocommerce_product_data_panels'), 10, 0);
+
+			// add_filter('admin_enqueue_scripts',  array($this, 'enqueue_select2_jquery'), 10, 0);
+			// add_filter('admin_head',  array($this, 'select2jquery_inline'), 10, 0);
+		}
+
+		public function enqueue_select2_jquery()
+		{
+			wp_register_style('select2css', '//cdnjs.cloudflare.com/ajax/libs/select2/3.4.8/select2.css', false, '1.0', 'all');
+			wp_register_script('select2', '//cdnjs.cloudflare.com/ajax/libs/select2/3.4.8/select2.js', array('jquery'), '1.0', true);
+			wp_enqueue_style('select2css');
+			wp_enqueue_script('select2');
+		}
+
+		public function select2jquery_inline()
+		{
+?>
+			<style type="text/css">
+				.select2-container {
+					margin: 0 2px 0 2px;
+				}
+
+				.tablenav.top #doaction,
+				#doaction2,
+				#post-query-submit {
+					margin: 0px 4px 0 4px;
+				}
+			</style>
+			<script type='text/javascript'>
+				jQuery(document).ready(function($) {
+					if ($('.select2').length > 0) {
+						$('.select2').select2();
+						$(document.body).on("click", function() {
+							$('.select2').select2();
+						});
+					}
+				});
+			</script>
+		<?php
 		}
 
 		public function action_woocommerce_admin_process_product_object($product)
@@ -177,7 +215,7 @@ if (!class_exists('Protected_Page_Pro')) {
 			$roles = get_option('protect_user_roles');
 			$selected_roles = (array) get_post_meta($post->ID, 'protect_user_role_after_order_complete', true);
 
-?>
+		?>
 			<div id="wk_custom_tab_data" class="panel woocommerce_options_panel">
 				<h3>Roles that the user will have after purchasing a product</h3>
 				<?php if (count($roles)) : ?>
@@ -370,8 +408,115 @@ if (!class_exists('Protected_Page_Pro')) {
 				'protect_all_cpt',
 				"protect_post_type_by_user_roles"
 			);
+
+			// support post type
+			add_settings_section(
+				'protect_page_redirect_when_user_no_access_all_cpt',
+				"",
+				null,
+				$this->page_id
+			);
+
+			add_settings_field(
+				"protect_post_type_by_user_roles",
+				"Re-direct when user has no access",
+				array($this, "render_redirect_user_has_no_access_all_cpt"),
+				$this->page_id,
+				'protect_page_redirect_when_user_no_access_all_cpt'
+			);
+
+			register_setting(
+				'protect_page_redirect_when_user_no_access_all_cpt',
+				"protect_post_type_by_user_roles"
+			);
 		}
 
+		public function render_redirect_user_has_no_access_all_cpt()
+		{
+			$args = array(
+				'sort_order' => 'asc',
+				'sort_column' => 'post_title',
+				'hierarchical' => 1,
+				'exclude' => '',
+				'include' => '',
+				'meta_key' => '',
+				'meta_value' => '',
+				'authors' => '',
+				'child_of' => 0,
+				'parent' => -1,
+				'exclude_tree' => '',
+				'number' => '',
+				'offset' => 0,
+				'post_type' => array('page', 'product'),
+				'post_status' => 'publish'
+			);
+
+			ini_set('display_errors', 1);
+			ini_set('display_startup_errors', 1);
+			error_reporting(E_ALL);
+
+			$query = new WP_Query($args);
+			$posts_types_data = get_option('protect_post_type_by_user_roles', array(
+				$this->current_page_cpt_name => array(
+					'redirect_when_user_has_no_access' => null,
+					'roles' => null,
+				)
+			));
+
+			if (!isset($posts_types_data[$this->current_page_cpt_name]['redirect_when_user_has_no_access'])) {
+				$posts_types_data[$this->current_page_cpt_name]['redirect_when_user_has_no_access'] = null;
+			}
+			if (!isset($posts_types_data[$this->current_page_cpt_name]['roles'])) {
+				$posts_types_data[$this->current_page_cpt_name]['roles'] = [];
+			}
+		?>
+			<div>
+				<select name='protect_post_type_by_user_roles[<?php echo esc_html($this->current_page_cpt_name) ?>][redirect_when_user_has_no_access]'>
+					<?php foreach ($query->posts as $page) : ?>
+						<option value="<?php echo esc_html($page->ID); ?>" <?php selected(1, ((int)$posts_types_data[$this->current_page_cpt_name]['redirect_when_user_has_no_access'] === (int)$page->ID), true); ?>> <?php echo esc_html($page->post_title); ?></option>
+					<?php endforeach; ?>
+				</select>
+			</div>
+		<?php
+		}
+		public function render_user_role_for_cpt()
+		{
+		?>
+			<?php echo $this->renderUserRolesCheckbox(); ?>
+		<?php
+		}
+
+		private function renderUserRolesCheckbox($role = null)
+		{
+			global $wp_roles;
+			$roles = get_option('protect_user_roles', []);
+			$posts_types = get_option('protect_post_type_by_user_roles', []);
+
+			// var_dump($posts_types[$this->current_page_cpt_name]);
+
+			ob_start();
+		?>
+			<?php foreach ($posts_types as $post_type_name => $post_type_data) : ?>
+				<?php if ($post_type_name === $this->current_page_cpt_name) : continue;
+				endif; ?>
+				<?php foreach ($post_type_data['roles'] as $post_type_id) : ?>
+					<input type="hidden" name="protect_post_type_by_user_roles[<?php echo esc_html($post_type_name) ?>][roles][]" value="<?php echo esc_html($post_type_id) ?>" checked="">
+				<?php endforeach; ?>
+				<input type="hidden" name="protect_post_type_by_user_roles[<?php echo esc_html($post_type_name) ?>][redirect_when_user_has_no_access]" value="<?php echo esc_html($posts_types[$post_type_name]['redirect_when_user_has_no_access']) ?>" checked="">
+			<?php endforeach; ?>
+
+			<?php foreach ($roles as $key => $display) : ?>
+				<div>
+					<input id="user_role_<?php echo esc_html($key) ?>" type="checkbox" name="protect_post_type_by_user_roles[<?php echo esc_html($this->current_page_cpt_name) ?>][roles][]" value="<?php echo esc_html($display) ?>" <?php checked(1, in_array($display, $posts_types[$this->current_page_cpt_name]['roles']), true); ?>>
+					<label for="user_role_<?php echo esc_html($key) ?>">
+						<?php echo esc_html($display) ?>
+					</label>
+				</div>
+			<?php endforeach; ?>
+		<?php
+
+			return  ob_get_clean();
+		}
 		public function set_options_fields_for_toggle_protect_all_post_type()
 		{
 			// support post type
@@ -388,12 +533,7 @@ if (!class_exists('Protected_Page_Pro')) {
 			);
 		}
 
-		public function render_user_role_for_cpt()
-		{
-		?>
-			<?php echo $this->renderUserRolesCheckbox(); ?>
-		<?php
-		}
+
 		public function add_admin_woocommerce_setting_page()
 		{
 			$this->woocommerce_setting_page = "{$this->dependency_plugin_name}_woocommerce_setting_page";
@@ -503,7 +643,7 @@ if (!class_exists('Protected_Page_Pro')) {
 			</select>
 			<?php
 
-			if ($role !== null) {
+			if ($page_guid !== null) {
 				return ob_get_clean();
 			}
 
@@ -676,35 +816,7 @@ if (!class_exists('Protected_Page_Pro')) {
 			return $this->user_role_template = ob_get_clean();
 		}
 
-		private function renderUserRolesCheckbox($role = null)
-		{
-			global $wp_roles;
-			$roles = get_option('protect_user_roles', []);
-			$posts_types = get_option('protect_post_type_by_user_roles', []);
 
-			ob_start();
-			?>
-			<?php foreach ($posts_types as $post_type_name => $_roles) : ?>
-				<?php if ($post_type_name === $this->current_page_cpt_name) : continue;
-				endif;
-				?>
-				<?php foreach ($_roles as $role) : ?>
-					<input type="hidden" name="protect_post_type_by_user_roles[<?php echo esc_html($post_type_name) ?>][]" value="<?php echo esc_html($role) ?>" checked="">
-				<?php endforeach; ?>
-			<?php endforeach; ?>
-
-			<?php foreach ($roles as $key => $display) : ?>
-				<div>
-					<input id="user_role_<?php echo esc_html($key) ?>" type="checkbox" name="protect_post_type_by_user_roles[<?php echo esc_html($this->current_page_cpt_name) ?>][]" value="<?php echo esc_html($display) ?>" <?php checked(1, in_array($display, $posts_types[$this->current_page_cpt_name]), true); ?>>
-					<label for="user_role_<?php echo esc_html($key) ?>">
-						<?php echo esc_html($display) ?>
-					</label>
-				</div>
-			<?php endforeach; ?>
-		<?php
-
-			return  ob_get_clean();
-		}
 
 		private function renderUserRoles($role = null)
 		{
@@ -714,13 +826,14 @@ if (!class_exists('Protected_Page_Pro')) {
 
 			$roles = get_option('protect_user_roles', []);
 			ob_start();
-		?>
+			?>
 			<select name="user_role">
 				<option>-</option>
 				<?php foreach ($roles as $key => $display) : ?>
 					<option value="<?php echo esc_html($display) ?>" <?php if ($display === $role) : ?>selected<?php endif; ?>><?php echo esc_html($display); ?></option>
 				<?php endforeach; ?>
 			</select>
+			<span class="pure-select"></span>
 <?php
 
 			if ($role !== null) {
